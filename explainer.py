@@ -131,3 +131,28 @@ def _render_text(facts: dict, audience: str) -> str:
         if missing:
             text += f"Domains without available data: {missing}."
     return text.strip()
+
+# Part 5
+# Enforce the explanation safety contract. Scan output for forbidden phrases.
+def _assert_safe(text: str) -> None:
+    """Structural safety gate, not a disclaimer. Scan output for forbidden phrases."""
+    lowered = text.lower()
+    for phrase in FORBIDDEN_PHRASES:
+        if phrase in lowered:
+            raise ExplanationError(f"Forbidden phrase in output: {phrase!r}")
+
+# Part 6
+# Produce an audit event for the explanation.
+def _build_audit(payload: dict) -> dict:
+    """Metadata only. No bounded payload, no timestamp -> deterministic."""
+    canonical = json.dumps(payload, sort_keys=True).encode("utf-8")
+    input_hash = hashlib.sha256(canonical).hexdigest()
+    return {
+        "case_id": payload.get("case_id"),
+        "score_version": payload.get("score_version"),
+        "explanation_version": payload.get("explanation_version"),
+        "input_sha256": input_hash,
+        "outcome": "rendered",
+    }
+
+
