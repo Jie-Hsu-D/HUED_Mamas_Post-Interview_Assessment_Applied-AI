@@ -155,4 +155,17 @@ def _build_audit(payload: dict) -> dict:
         "outcome": "rendered",
     }
 
-
+# Part 7: Public entry point.
+# Orchestrates the pipeline in order: validate -> build facts -> render
+# -> safety check -> audit. 
+def render_explanation(payload: dict, audience: str) -> dict:
+    _validate(payload, audience)
+    facts = _build_facts(payload)
+    text = _render_text(facts, audience)
+    _assert_safe(text)
+    audit = _build_audit(payload)
+    return {
+        "facts": facts,
+        "explanation": text,
+        "audit_event": audit,
+    }
