@@ -1,0 +1,1 @@
+{"case_id":"case_t3_mixed","score_version":"SYNTHETIC-1.0","explanation_version":"TEMPLATE-1.0","tier":"T3","score":44,"contributors":[{"domain":"sleep","signal":"needs_attention","rank":1},{"domain":"stress","signal":"needs_attention","rank":2},{"domain":"cycle_pattern","signal":"mixed","rank":3}],"missing_domains":[]}

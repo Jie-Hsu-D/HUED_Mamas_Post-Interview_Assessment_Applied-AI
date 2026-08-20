@@ -1,0 +1,1 @@
+{"case_id":"case_t1_complete","score_version":"SYNTHETIC-1.0","explanation_version":"TEMPLATE-1.0","tier":"T1","score":82,"contributors":[{"domain":"cycle_pattern","signal":"supportive","rank":1},{"domain":"sleep","signal":"supportive","rank":2}],"missing_domains":[]}

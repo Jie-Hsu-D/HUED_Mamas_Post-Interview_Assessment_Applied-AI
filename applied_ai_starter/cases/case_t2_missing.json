@@ -1,0 +1,1 @@
+{"case_id":"case_t2_missing","score_version":"SYNTHETIC-1.0","explanation_version":"TEMPLATE-1.0","tier":"T2","score":61,"contributors":[{"domain":"cycle_pattern","signal":"needs_attention","rank":1},{"domain":"stress","signal":"mixed","rank":2}],"missing_domains":["physical_health"]}

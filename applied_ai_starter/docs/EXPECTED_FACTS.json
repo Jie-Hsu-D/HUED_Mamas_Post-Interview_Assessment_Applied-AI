@@ -1,0 +1,18 @@
+{
+  "case_t1_complete": {
+    "tier": "T1",
+    "ordered_domains": ["cycle_pattern", "sleep"],
+    "missing_domains": []
+  },
+  "case_t2_missing": {
+    "tier": "T2",
+    "ordered_domains": ["cycle_pattern", "stress"],
+    "missing_domains": ["physical_health"]
+  },
+  "case_t3_mixed": {
+    "tier": "T3",
+    "ordered_domains": ["sleep", "stress", "cycle_pattern"],
+    "missing_domains": []
+  }
+}
+
