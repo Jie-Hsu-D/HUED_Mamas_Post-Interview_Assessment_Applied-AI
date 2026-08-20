@@ -4,15 +4,37 @@
 
 \- \*\*Tool:\*\* Claude (Anthropic).
 
-\- \*\*Purpose:\*\* Clarify unfamiliar concepts, review design logic for gaps, and
 
-&#x20; refine wording of code comments and documentation.
 
-\- \*\*Material outputs adopted:\*\* Structure of the explanation pipeline and
+\- \*\*Where and how used:\*\*
 
-&#x20; documentation drafts, edited and finalized by me.
+&#x20; - Explaining unfamiliar concepts (e.g. deterministic vs. LLM output,
 
-\- \*\*Verification:\*\* I ran the full test suite to confirm all behavior, and
+&#x20;   hallucination, PHI, auditability) so I could reason about the design myself.
 
-&#x20; reviewed each function line by line to ensure I can explain and modify it.
+&#x20; - Reviewing my design for gaps and drafting the pipeline structure and the
+
+&#x20;   documentation.
+
+&#x20; - Explaining the code line by line so I understand every function.
+
+
+
+\- \*\*Material outputs adopted:\*\* The overall pipeline structure (validate →
+
+&#x20; build facts → render → safety scan → audit), the template/LLM decision, and
+
+&#x20; first drafts of these documents — all reviewed and edited by me.
+
+
+
+\- \*\*Verification performed:\*\*
+
+&#x20; - Ran the full `unittest` suite and confirmed all tests pass.
+
+&#x20; - Reviewed each function line by line to ensure I can explain and modify it
+
+&#x20;   without the tool, in preparation for the live defense.
+
+&#x20; - Checked every documented behavior against the actual code and the contracts.
 
