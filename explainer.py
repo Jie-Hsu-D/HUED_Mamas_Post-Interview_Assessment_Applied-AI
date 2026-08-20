@@ -88,3 +88,46 @@ def _validate(payload: dict, audience: str) -> None:
     for d in payload.get("missing_domains", []):
         if d not in ALLOWED_CONTRIBUTOR_DOMAINS:
             raise ExplanationError("Unknown missing domain")
+
+# Part 3
+# Audience-independent facts. Both audiences share this.
+def _build_facts(payload: dict) -> dict:
+    """Audience-independent facts. Both audiences share this."""
+    ordered = sorted(payload.get("contributors", []), key=lambda c: c["rank"])
+    return {
+        "tier": payload["tier"],
+        "ordered_domains": [c["domain"] for c in ordered],
+        "domain_signals": {c["domain"]: c["signal"] for c in ordered},
+        "missing_domains": list(payload.get("missing_domains", [])),
+    }
+
+# Part 4
+# Implemented versioned template driven explanation. Same facts, different wording. Neutral phrasing only.
+def _render_text(facts: dict, audience: str) -> str:
+    """Same facts, different wording. Neutral phrasing only."""
+    tier_phrase = TIER_MEANING[facts["tier"]]
+    labeled = [DOMAIN_LABELS[d] for d in facts["ordered_domains"]]
+    domain_str = ", ".join(labeled) if labeled else "no ranked areas"
+
+    signal_bits = [
+        f"{DOMAIN_LABELS[d]} {SIGNAL_LABELS[facts['domain_signals'][d]]}"
+        for d in facts["ordered_domains"]
+    ]
+    signal_str = "; ".join(signal_bits)
+    missing = ", ".join(DOMAIN_LABELS[d] for d in facts["missing_domains"])
+
+    if audience == "patient":
+        text = f"Your overall result reflects {tier_phrase}. "
+        text += f"The areas that shaped this result, in order, were: {domain_str}. "
+        if signal_str:
+            text += f"By area: {signal_str}. "
+        if missing:
+            text += f"Some areas had no information available: {missing}."
+    else:  # provider
+        text = f"Score tier {facts['tier']} indicates {tier_phrase}. "
+        text += f"Contributing domains, ranked: {domain_str}. "
+        if signal_str:
+            text += f"Signal by domain: {signal_str}. "
+        if missing:
+            text += f"Domains without available data: {missing}."
+    return text.strip()
